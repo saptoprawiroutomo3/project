@@ -17,14 +17,13 @@ const seedData = async () => {
     await Product.deleteMany({});
     console.log('Cleared existing data');
 
-    // Create demo users
-    const hashedPassword = await bcrypt.hash('password123', 12);
+    // Create demo users (password akan di-hash otomatis oleh pre-save hook)
     
     const users = await User.create([
       {
         name: 'Demo Customer',
         email: 'customer@demo.com',
-        password: hashedPassword,
+        password: 'password123',
         phone: '081234567890',
         role: 'customer',
         isVerified: true,
@@ -42,7 +41,7 @@ const seedData = async () => {
       {
         name: 'Demo Seller',
         email: 'seller@demo.com',
-        password: hashedPassword,
+        password: 'password123',
         phone: '081234567891',
         role: 'seller',
         isVerified: true,
@@ -64,7 +63,7 @@ const seedData = async () => {
       {
         name: 'Admin User',
         email: 'admin@demo.com',
-        password: hashedPassword,
+        password: 'password123',
         phone: '081234567892',
         role: 'admin',
         isVerified: true

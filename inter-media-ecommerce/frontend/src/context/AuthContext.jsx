@@ -134,10 +134,19 @@ export const AuthProvider = ({ children }) => {
     toast.success('Logged out successfully!')
   }
 
-  const updateUser = (userData) => {
-    const updatedUser = { ...state.user, ...userData }
-    localStorage.setItem('user', JSON.stringify(updatedUser))
-    dispatch({ type: 'UPDATE_USER', payload: userData })
+  const updateProfile = async (profileData) => {
+    try {
+      const response = await authAPI.updateProfile(profileData)
+      const updatedUser = response.data.user
+      
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+      dispatch({ type: 'UPDATE_USER', payload: updatedUser })
+      
+      return { success: true }
+    } catch (error) {
+      const message = error.response?.data?.message || 'Profile update failed'
+      throw new Error(message)
+    }
   }
 
   const value = {
@@ -146,7 +155,7 @@ export const AuthProvider = ({ children }) => {
     register,
     verifyOTP,
     logout,
-    updateUser,
+    updateProfile,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
