@@ -67,8 +67,22 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true })
+      
+      // Validasi input
+      if (!credentials.email || !credentials.password) {
+        throw new Error('Email dan password harus diisi')
+      }
+
+      console.log('Attempting login with:', { email: credentials.email })
+      
       const response = await authAPI.login(credentials)
+      console.log('Login response:', response.data)
+      
       const { token, user } = response.data
+
+      if (!token || !user) {
+        throw new Error('Invalid response from server')
+      }
 
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))
@@ -78,11 +92,27 @@ export const AuthProvider = ({ children }) => {
         payload: { token, user },
       })
 
-      toast.success('Login successful!')
+      toast.success('Login berhasil!')
       return { success: true }
     } catch (error) {
       dispatch({ type: 'SET_LOADING', payload: false })
-      const message = error.response?.data?.message || 'Login failed'
+      
+      console.error('Login error:', error)
+      
+      let message = 'Login gagal'
+      
+      if (error.code === 'NETWORK_ERROR' || error.message === 'Network Error') {
+        message = 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.'
+      } else if (error.response?.status === 401) {
+        message = 'Email atau password salah'
+      } else if (error.response?.status === 403) {
+        message = 'Akun Anda belum diverifikasi'
+      } else if (error.response?.data?.message) {
+        message = error.response.data.message
+      } else if (error.message) {
+        message = error.message
+      }
+      
       toast.error(message)
       return { success: false, error: error.response?.data }
     }

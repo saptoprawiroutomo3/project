@@ -92,23 +92,33 @@ const verifyOTP = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log('🔍 Login attempt started:', { email: req.body.email });
     const { email, password } = req.body;
 
+    console.log('🔍 Searching for user in database...');
     const user = await User.findOne({ email });
+    
     if (!user) {
+      console.log('❌ User not found:', email);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
+    console.log('✅ User found:', { id: user._id, email: user.email, role: user.role });
 
     if (!user.isActive) {
+      console.log('❌ User account deactivated:', email);
       return res.status(401).json({ message: 'Account is deactivated' });
     }
 
+    console.log('🔍 Comparing password...');
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
+      console.log('❌ Password mismatch for:', email);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
+    console.log('✅ Password match successful');
 
     if (!user.isVerified) {
+      console.log('❌ User not verified:', email);
       return res.status(401).json({ 
         message: 'Please verify your email first',
         requiresVerification: true,
@@ -116,7 +126,9 @@ const login = async (req, res) => {
       });
     }
 
+    console.log('🔍 Generating JWT token...');
     const token = generateToken(user._id);
+    console.log('✅ Login successful for:', email);
 
     res.json({
       message: 'Login successful',
@@ -131,6 +143,8 @@ const login = async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('💥 Login error:', error.message);
+    console.error('💥 Full error:', error);
     res.status(500).json({ message: error.message });
   }
 };

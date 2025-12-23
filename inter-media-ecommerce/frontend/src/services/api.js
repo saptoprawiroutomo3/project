@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002/api'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -29,10 +29,20 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error('API Error:', error)
+    
+    if (error.code === 'ECONNABORTED') {
+      error.message = 'Request timeout - server tidak merespons'
+    } else if (error.code === 'ERR_NETWORK') {
+      error.message = 'Network Error - tidak dapat terhubung ke server'
+    }
+    
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      window.location.href = '/login'
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login'
+      }
     }
     return Promise.reject(error)
   }

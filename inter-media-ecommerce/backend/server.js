@@ -2,6 +2,10 @@ const app = require('./src/app');
 const http = require('http');
 const socketIo = require('socket.io');
 
+console.log('🚀 Starting server...');
+console.log('🔍 Environment:', process.env.NODE_ENV);
+console.log('🔍 Port:', process.env.PORT || 3001);
+
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
@@ -53,7 +57,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const port = process.env.PORT || 3001;
-server.listen(port, () => {
+const port = process.env.PORT || 3002;
+server.listen(port, '0.0.0.0', () => {
   console.log(`Server running on port ${port}`);
 });

@@ -9,10 +9,18 @@
     "frontend": "cd frontend && npm run dev",
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
   },
-  "keywords": ["ecommerce", "nodejs", "react", "mongodb"],
+  "keywords": [
+    "ecommerce",
+    "nodejs",
+    "react",
+    "mongodb"
+  ],
   "author": "Inter Medi-A",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.13.2"
   }
 }
