@@ -98,6 +98,7 @@ export default function RootLayout({
   return (
     <html lang="id" data-scroll-behavior="smooth">
       <head>
+        <meta name="google-site-verification" content="bxCxl1excnh39afDaUA2a_iIdQRsjm1zsMWVMfGpAUg" />
         <BusinessSEO />
       </head>
       <body className={inter.className}>
