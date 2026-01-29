@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "app/api/**/*.js": {
-      "maxDuration": 30
-    }
-  },
   "env": {
     "GOOGLE_SITE_VERIFICATION": "bxCxl1excnh39afDaUA2a_iIdQRsjm1zsMWVMfGpAUg"
   }
