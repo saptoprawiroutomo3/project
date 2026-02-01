@@ -47,28 +47,32 @@ export function BusinessSEO() {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Product",
-            "name": "Printer Canon, Epson, HP"
+            "name": "Printer Canon, Epson, HP",
+            "url": "https://projectme-rosy.vercel.app/products"
           }
         },
         {
           "@type": "Offer", 
           "itemOffered": {
             "@type": "Product",
-            "name": "Mesin Fotocopy"
+            "name": "Mesin Fotocopy",
+            "url": "https://projectme-rosy.vercel.app/products"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Product", 
-            "name": "Laptop & Komputer"
+            "name": "Laptop & Komputer",
+            "url": "https://projectme-rosy.vercel.app/products"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Service Printer & Fotocopy"
+            "name": "Service Printer & Fotocopy",
+            "url": "https://projectme-rosy.vercel.app/service/request"
           }
         }
       ]
