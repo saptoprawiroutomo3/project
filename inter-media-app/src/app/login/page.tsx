@@ -101,15 +101,7 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            <div className="mt-6 border-t pt-6">
-              <div className="text-sm text-gray-600">
-                <p className="font-medium mb-2">Akun Demo:</p>
-                <div className="space-y-1">
-                  <p><strong>Admin:</strong> admin@intermedia.com / admin123</p>
-                  <p><strong>Kasir:</strong> kasir@intermedia.com / kasir123</p>
-                </div>
-              </div>
-            </div>
+
           </CardContent>
         </Card>
       </div>
