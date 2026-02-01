@@ -8,14 +8,22 @@ const nextConfig = {
   },
   // Enable server-side features for API routes
   serverExternalPackages: ['mongoose'],
-  async headers() {
+  async rewrites() {
     return [
       {
         source: '/sitemap.xml',
+        destination: '/api/sitemap',
+      },
+    ]
+  },
+  async headers() {
+    return [
+      {
+        source: '/api/sitemap',
         headers: [
           {
             key: 'Content-Type',
-            value: 'application/xml',
+            value: 'application/xml; charset=utf-8',
           },
         ],
       },
